@@ -1,0 +1,24 @@
+name: Deploy Static Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # 每次推送到 main 分支时触发部署
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository to get the static files
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 设置 GitHub Pages
+      - name: Set up GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./ # 假设静态文件放在仓库根目录
+          # 或者如果你有放在特定文件夹，例如 docs/
+          # publish_dir: ./docs
